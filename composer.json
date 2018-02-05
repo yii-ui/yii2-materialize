@@ -1,0 +1,32 @@
+{
+    "name": "yii-ui/yii2-materialize",
+    "description": "Yii 2 Materialize Extension.",
+    "keywords": [
+        "yii2",
+        "ui",
+        "materialize"
+    ],
+    "type": "yii2-extension",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/yii-ui/yii2-materialize/issues",
+        "source": "https://github.com/yii-ui/yii2-materialize"
+    },
+    "authors": [
+        {
+            "name": "Christoph Möke",
+            "email": "christophmoeke@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "yiisoft/yii2": "~2.0.6",
+        "npm-asset/materialize-css": "~1.0.0-alpha"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
+}

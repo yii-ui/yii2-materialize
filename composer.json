@@ -25,6 +25,11 @@
         "yiisoft/yii2": "~2.0.6",
         "npm-asset/materialize-css": "~1.0.0-alpha"
     },
+    "autoload": {
+        "psr-4": {
+            "yiiui\\yii2materialize\\": ""
+        }
+    },
     "repositories": [
         {
             "type": "composer",

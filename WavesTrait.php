@@ -5,17 +5,30 @@ use Yii;
 
 trait WavesTrait
 {
-    public $wavesOptions = [];
+    public $waves = null;
+
+    public $wavesCircle = false;
+
+    public $wavesColor = null;
 
     public function init()
     {
         parent::init();
 
-        $waves = new Waves();
-        $options = $waves->getOptions();
+        if ($this->waves === null && isset($this->autoWaves)) {
+            $this->waves = $this->autoWaves;
+        }
 
-        if (isset($options['class'])) {
-            Html::addCssClass($this->options, $options['class']);
+        if ($this->waves) {
+            Html::addCssClass($this->options, ['waves' => 'waves-effect']);
+        }
+
+        if ($this->wavesCircle) {
+            Html::addCssClass($this->options, ['waves-circle' => 'waves-circle']);
+        }
+
+        if ($this->wavesColor !== null) {
+            Html::addCssClass($this->options, ['waves-color' => 'waves-'.$this->wavesColor]);
         }
     }
 }

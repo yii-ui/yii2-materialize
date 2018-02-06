@@ -1,7 +1,6 @@
 <?php
 namespace yiiui\yii2materialize;
 
-use Yii;
 use yii\helpers\Json;
 
 trait MaterializeWidgetTrait

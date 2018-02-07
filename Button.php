@@ -1,9 +1,11 @@
 <?php
 namespace yiiui\yii2materialize;
 
-class Button extends Widget
+class Button extends Widget implements ColorInterface
 {
     use WavesTrait;
+    use BackgroundColorTrait;
+    use TextColorTrait;
 
     const TYPE_DEFAULT = 'default';
     const TYPE_FLOATING = 'floating';

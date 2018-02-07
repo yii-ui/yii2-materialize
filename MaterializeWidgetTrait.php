@@ -9,10 +9,8 @@ trait MaterializeWidgetTrait
 
     public $clientEvents = [];
 
-    public function init()
+    public function initTraitMaterializeWidget()
     {
-        parent::init();
-
         if (!isset($this->options['id'])) {
             $this->options['id'] = $this->getId();
         }

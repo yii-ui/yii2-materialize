@@ -3,6 +3,8 @@ namespace yiiui\yii2materialize;
 
 class Button extends Widget
 {
+    use WavesTrait;
+
     const TYPE_DEFAULT = 'default';
     const TYPE_FLOATING = 'floating';
     const TYPE_FLAT = 'flat';
@@ -10,10 +12,6 @@ class Button extends Widget
     const SIZE_DEFAULT = 'btn';
     const SIZE_LARGE = 'btn-large';
     const SIZE_SMALL = 'btn-small';
-
-    use WavesTrait {
-        WavesTrait::init as private initWaves;
-    }
 
     public $autoWaves = true;
 
@@ -44,8 +42,6 @@ class Button extends Widget
         if ($this->disabled || (isset($this->options['disabled']) && $this->options['disabled'] !== false)) {
             Html::addCssClass($this->options, ['disabled' => 'disabled']);
         }
-
-        $this->initWaves();
     }
 
     public function run()

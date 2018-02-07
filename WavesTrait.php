@@ -11,10 +11,8 @@ trait WavesTrait
 
     public $wavesColor = null;
 
-    public function init()
+    public function initTraitWaves()
     {
-        parent::init();
-
         if ($this->waves === null && isset($this->autoWaves)) {
             $this->waves = $this->autoWaves;
         }

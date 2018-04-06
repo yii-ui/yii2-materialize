@@ -22,4 +22,15 @@ class Widget extends \yii\base\Widget
             $this->$trait();
         });
     }
+
+    public function beforeRun()
+    {
+        if (!parent::beforeRun()) {
+            return false;
+        }
+
+        MaterializeAsset::register($this->getView());
+
+        return true;
+    }
 }

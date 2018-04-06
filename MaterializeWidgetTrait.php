@@ -20,7 +20,7 @@ trait MaterializeWidgetTrait
     {
         $view = $this->getView();
 
-        //BootstrapPluginAsset::register($view);
+        MaterializePluginAsset::register($view);
 
         $id = $this->options['id'];
 

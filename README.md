@@ -3,6 +3,7 @@ Materialize for Yii 2
 
 [![Latest Stable Version](https://poser.pugx.org/yii-ui/yii2-materialize/version)](https://packagist.org/packages/yii-ui/yii2-materialize)
 [![Total Downloads](https://poser.pugx.org/yii-ui/yii2-materialize/downloads)](https://packagist.org/packages/yii-ui/yii2-materialize)
+[![Dependency Status](https://www.versioneye.com/user/projects/5a78a9950fb24f313994b531/badge.svg)](https://www.versioneye.com/user/projects/5a78a9950fb24f313994b531)
 [![Code Climate](https://codeclimate.com/github/yii-ui/yii2-rubaxa-sortable/badges/gpa.svg)](https://codeclimate.com/github/yii-ui/yii2-materialize)
 [![Yii2](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](http://www.yiiframework.com/)
 [![License](https://poser.pugx.org/yii-ui/yii2-materialize/license)](https://packagist.org/packages/yii-ui/yii2-materialize)

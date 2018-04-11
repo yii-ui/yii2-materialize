@@ -23,7 +23,7 @@
     "require": {
         "php": ">=7.0.0",
         "yiisoft/yii2": "~2.0.15",
-        "npm-asset/materialize-css": "1.0.0-beta"
+        "npm-asset/materialize-css": "1.0.0-beta1"
     },
     "autoload": {
         "psr-4": {

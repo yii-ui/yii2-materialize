@@ -105,10 +105,17 @@ class ActiveField extends \yii\widgets\ActiveField
      */
     public function checkbox($options = [], $enclosedByLabel = false)
     {
-        Html::addCssClass($this->options, ['class' => 'checkbox']);
-        Html::removeCssClass($this->options, 'input-field');
+        $this->parts['{input}'] = Html::activeCheckbox($this->model, $this->attribute, $options);
+        $this->parts['{label}'] = '';
 
-        return parent::checkbox($options, $enclosedByLabel);
+        if ($this->form->validationStateOn === ActiveForm::VALIDATION_STATE_ON_INPUT) {
+            $this->addErrorClassIfNeeded($options);
+        }
+
+        $this->addAriaAttributes($options);
+        $this->adjustLabelFor($options);
+
+        return $this;
     }
 
     /**

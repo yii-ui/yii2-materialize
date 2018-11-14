@@ -3,6 +3,7 @@ namespace yiiui\yii2materialize;
 
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use Yii;
 
 class Breadcrumbs extends \yii\widgets\Breadcrumbs
 {
@@ -11,6 +12,30 @@ class Breadcrumbs extends \yii\widgets\Breadcrumbs
 
     public $itemTemplate = '{link}';
     public $activeItemTemplate = '{link}';
+    public $allowEmpty = true;
+
+    public function run()
+    {
+        if (!$this->allowEmpty && empty($this->links)) {
+            return;
+        }
+        $links = [];
+        if ($this->homeLink === null) {
+            $links[] = $this->renderItem([
+                'label' => Yii::t('yii', 'Home'),
+                'url' => Yii::$app->homeUrl,
+            ], $this->itemTemplate);
+        } elseif ($this->homeLink !== false) {
+            $links[] = $this->renderItem($this->homeLink, $this->itemTemplate);
+        }
+        foreach ($this->links as $link) {
+            if (!is_array($link)) {
+                $link = ['label' => $link];
+            }
+            $links[] = $this->renderItem($link, isset($link['url']) ? $this->itemTemplate : $this->activeItemTemplate);
+        }
+        echo Html::tag($this->tag, implode('', $links), $this->options);
+    }
 
     protected function renderItem($link, $template)
     {

@@ -58,4 +58,10 @@ class Html extends \yii\helpers\Html
         $content = static::label(static::input($type, $name, $value, $options) . ' ' . $label, null, $labelOptions);
         return Html::tag('p', $hidden . $content);
     }
+
+    public static function textarea($name, $value = '', $options = [])
+    {
+        Html::addCssClass($options, ['textarea' => 'materialize-textarea']);
+        return parent::textarea($name, $value, $options);
+    }
 }

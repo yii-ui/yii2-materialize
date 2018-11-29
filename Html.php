@@ -30,7 +30,7 @@ class Html extends \yii\helpers\Html
             $options['id'] = static::getInputId($model, $attribute);
         }
 
-        return Html::tag('p', static::$type($name, $checked, $options));
+        return static::$type($name, $checked, $options);
     }
 
     protected static function booleanInput($type, $name, $checked = false, $options = [])
@@ -56,7 +56,7 @@ class Html extends \yii\helpers\Html
         $label = '<span>'.$label.'</span>';
 
         $content = static::label(static::input($type, $name, $value, $options) . ' ' . $label, null, $labelOptions);
-        return Html::tag('p', $hidden . $content);
+        return Html::tag('p', $hidden . $content, ['class' => 'checkbox-wrapper']);
     }
 
     public static function textarea($name, $value = '', $options = [])

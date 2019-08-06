@@ -16,6 +16,10 @@ class ActiveField extends \yii\widgets\ActiveField
     public $hintOptions = ['class' => 'hint-block'];
     public $icon;
     public $showCharacterCounter = false;
+    /**
+     * @var bool if "for" field label attribute should be skipped.
+     */
+    private $_skipLabelFor = false;
 
     public function init()
     {
@@ -105,6 +109,9 @@ class ActiveField extends \yii\widgets\ActiveField
      */
     public function checkbox($options = [], $enclosedByLabel = false)
     {
+        Html::removeCssClass($this->options, 'input-field');
+        Html::addCssClass($this->options, 'checkbox-field');
+
         $this->parts['{input}'] = Html::activeCheckbox($this->model, $this->attribute, $options);
         $this->parts['{label}'] = '';
 
@@ -114,6 +121,25 @@ class ActiveField extends \yii\widgets\ActiveField
 
         $this->addAriaAttributes($options);
         $this->adjustLabelFor($options);
+
+        return $this;
+    }
+
+    public function checkboxList($items, $options = [])
+    {
+        Html::removeCssClass($this->options, 'input-field');
+        Html::addCssClass($this->options, 'checkbox-field');
+
+        $this->template = "{icon}\n{label}\n{input}\n{hint}\n{error}";
+
+        if ($this->form->validationStateOn === ActiveForm::VALIDATION_STATE_ON_INPUT) {
+            $this->addErrorClassIfNeeded($options);
+        }
+
+        $this->addAriaAttributes($options);
+        $this->adjustLabelFor($options);
+        $this->_skipLabelFor = true;
+        $this->parts['{input}'] = Html::activeCheckboxList($this->model, $this->attribute, $items, $options);
 
         return $this;
     }
@@ -140,19 +166,53 @@ class ActiveField extends \yii\widgets\ActiveField
         return parent::dropDownList($items, $options);
     }
 
-    /**
-     * Renders a radio button.
-     * @param array $options the tag options in terms of name-value pairs. See parent class for more details.
-     * @param bool $enclosedByLabel whether to enclose the checkbox within the label. This defaults to `false` as it is
-     * Materialize standard to not wrap the checkboxes in labels.
-     * @return $this
-     */
-    public function radio($options = [], $enclosedByLabel = false)
+    public function radio($options = [], $enclosedByLabel = true)
     {
-        Html::addCssClass($this->options, ['class' => 'radio']);
         Html::removeCssClass($this->options, 'input-field');
+        Html::addCssClass($this->options, 'radio-field');
 
-        return parent::radio($options, $enclosedByLabel);
+        if ($enclosedByLabel) {
+            $this->parts['{input}'] = Html::activeRadio($this->model, $this->attribute, $options);
+            $this->parts['{label}'] = '';
+        } else {
+            if (isset($options['label']) && !isset($this->parts['{label}'])) {
+                $this->parts['{label}'] = $options['label'];
+                if (!empty($options['labelOptions'])) {
+                    $this->labelOptions = $options['labelOptions'];
+                }
+            }
+            unset($options['labelOptions']);
+            $options['label'] = null;
+            $this->parts['{input}'] = Html::activeRadio($this->model, $this->attribute, $options);
+        }
+
+        if ($this->form->validationStateOn === ActiveForm::VALIDATION_STATE_ON_INPUT) {
+            $this->addErrorClassIfNeeded($options);
+        }
+
+        $this->addAriaAttributes($options);
+        $this->adjustLabelFor($options);
+
+        return $this;
+    }
+
+    public function radioList($items, $options = [])
+    {
+        Html::removeCssClass($this->options, 'input-field');
+        Html::addCssClass($this->options, 'radio-field');
+        $this->template = "{icon}\n{label}\n{input}\n{hint}\n{error}";
+
+        if ($this->form->validationStateOn === ActiveForm::VALIDATION_STATE_ON_INPUT) {
+            $this->addErrorClassIfNeeded($options);
+        }
+
+        $this->addRoleAttributes($options, 'radiogroup');
+        $this->addAriaAttributes($options);
+        $this->adjustLabelFor($options);
+        $this->_skipLabelFor = true;
+        $this->parts['{input}'] = Html::activeRadioList($this->model, $this->attribute, $items, $options);
+
+        return $this;
     }
 
     /**
@@ -403,21 +463,4 @@ class ActiveField extends \yii\widgets\ActiveField
 
         return parent::input('week', $options);
     }
-
-    /**
-     * Builds a radio list
-     */
-//    public function radioList($items, $options = [])
-//    {
-//        $defaultOptions = [
-//            'item' => function($index, $label, $name, $checked, $value) {
-//                return Html::radio($name,$checked,['value'=>$value,'id'=>$name.$index]) . Html::label($label,$name.$index);
-//                return $return;
-//            },
-//            'class'=>'input-list-wrapper'
-//        ];
-//        $options = array_merge($defaultOptions, $options);
-//
-//        return parent::radioList($items,$options);
-//    }
 }

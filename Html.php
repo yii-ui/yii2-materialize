@@ -56,7 +56,7 @@ class Html extends \yii\helpers\Html
         $label = '<span>'.$label.'</span>';
 
         $content = static::label(static::input($type, $name, $value, $options) . ' ' . $label, null, $labelOptions);
-        return Html::tag('p', $hidden . $content, ['class' => 'checkbox-wrapper']);
+        return Html::tag('p', $hidden . $content, ['class' => $type.'-wrapper']);
     }
 
     public static function textarea($name, $value = '', $options = [])

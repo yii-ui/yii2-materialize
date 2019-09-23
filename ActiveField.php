@@ -1,8 +1,6 @@
 <?php
 namespace yiiui\yii2materialize;
 
-use yiiui\yii2materialize\MaterializePluginAsset;
-use yiiui\yii2materialize\Html;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
@@ -215,6 +213,15 @@ class ActiveField extends \yii\widgets\ActiveField
         return $this;
     }
 
+    public function chipsInput($options = [])
+    {
+        Html::removeCssClass($this->options, 'input-field');
+        Html::addCssClass($this->options, 'chips-container');
+
+        $this->template = "{icon}\n{label}\n{input}\n{hint}\n{error}";
+
+        return self::widget(ChipsWidget::class, $options);
+    }
     /**
      * Renders a color input.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as

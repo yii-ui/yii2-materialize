@@ -1,6 +1,8 @@
 <?php
 namespace yiiui\yii2materialize;
 
+use yii\helpers\ArrayHelper;
+
 class Html extends \yii\helpers\Html
 {
     protected static function activeBooleanInput($type, $model, $attribute, $options = [])
@@ -22,7 +24,11 @@ class Html extends \yii\helpers\Html
             unset($options['label']);
         }
 
-        $options['label'] = '<span>'.$options['label'].'</span>';
+        $wrapLabel = ArrayHelper::remove($options, 'active-wrap-label', true);
+
+        if ($wrapLabel) {
+            $options['label'] = '<span>'.$options['label'].'</span>';
+        }
 
         $checked = "$value" === "{$options['value']}";
 
@@ -53,10 +59,16 @@ class Html extends \yii\helpers\Html
         $labelOptions = isset($options['labelOptions']) ? $options['labelOptions'] : [];
         unset($options['label'], $options['labelOptions']);
 
-        $label = '<span>'.$label.'</span>';
+        $wrapLabel = ArrayHelper::remove($options, 'wrap-label', true);
+
+        if ($wrapLabel) {
+            $label = '<span>'.$label.'</span>';
+        }
+
+        $wrapperClass = ArrayHelper::remove($options, 'wrapper-class', $type.'-wrapper');
 
         $content = static::label(static::input($type, $name, $value, $options) . ' ' . $label, null, $labelOptions);
-        return Html::tag('p', $hidden . $content, ['class' => $type.'-wrapper']);
+        return Html::tag('p', $hidden . $content, ['class' => $wrapperClass]);
     }
 
     public static function textarea($name, $value = '', $options = [])

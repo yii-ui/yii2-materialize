@@ -1,6 +1,9 @@
 <?php
 namespace yiiui\yii2materialize;
 
+use yiiui\yii2materialize\ChipsWidget;
+use yiiui\yii2materialize\Html;
+use yiiui\yii2materialize\MaterializePluginAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
@@ -112,6 +115,28 @@ class ActiveField extends \yii\widgets\ActiveField
 
         $this->parts['{input}'] = Html::activeCheckbox($this->model, $this->attribute, $options);
         $this->parts['{label}'] = '';
+
+        if ($this->form->validationStateOn === ActiveForm::VALIDATION_STATE_ON_INPUT) {
+            $this->addErrorClassIfNeeded($options);
+        }
+
+        $this->addAriaAttributes($options);
+        $this->adjustLabelFor($options);
+
+        return $this;
+    }
+
+    public function switch($options = [], $offLabel = 'Off', $onLabel = 'On')
+    {
+        $options['label'] = $offLabel.'<span class="lever"></span>'.$onLabel;
+        $options['wrapper-class'] = 'switch';
+        $options['active-wrap-label'] = false;
+        $options['wrap-label'] = false;
+
+        $this->template = "{icon}\n{label}\n{input}\n{hint}\n{error}";
+        $this->parts['{input}'] = Html::activeCheckbox($this->model, $this->attribute, $options);
+
+        $this->label(null, ['class' => 'active']);
 
         if ($this->form->validationStateOn === ActiveForm::VALIDATION_STATE_ON_INPUT) {
             $this->addErrorClassIfNeeded($options);

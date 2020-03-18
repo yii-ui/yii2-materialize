@@ -49,6 +49,10 @@ class Html extends \yii\helpers\Html
             if (isset($options['form'])) {
                 $hiddenOptions['form'] = $options['form'];
             }
+            // make sure disabled input is not sending any value
+            if (!empty($options['disabled'])) {
+                $hiddenOptions['disabled'] = $options['disabled'];
+            }
             $hidden = static::hiddenInput($name, $options['uncheck'], $hiddenOptions);
             unset($options['uncheck']);
         } else {

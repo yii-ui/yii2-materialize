@@ -40,12 +40,16 @@ class ChipsWidget extends InputWidget
             $this->value = $this->options['value'] ?? Html::getAttributeValue($this->model, $this->attribute);
         }
 
-        if (is_string($this->value)) {
+        if (is_string($this->value) && $this->value !== '') {
             $this->value = explode($this->delimiter, $this->value);
         }
 
         $data = $this->value;
         $value = [];
+
+        if (!is_array($data)) {
+            $data = [];
+        }
 
         array_walk($data, static function (&$tag) use (&$value) {
             if (!is_array($tag)) {
@@ -102,17 +106,17 @@ class ChipsWidget extends InputWidget
 (function($){
     var \$plugin = $('#$pluginId')
     var \$input = $('#$inputId')
-    
+
     var chipFormHelper = function () {
         var currentChips = [];
-        
+
         $.each(\$plugin.chips('getData'), function(index, data) {
             currentChips.push(data.tag)
         })
-        
+
         \$input.val(currentChips.join('$delimiter'))
     }
-    
+
     \$plugin.chips($options)
 }(jQuery));
 JS;

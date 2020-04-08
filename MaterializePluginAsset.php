@@ -8,7 +8,7 @@ class MaterializePluginAsset extends AssetBundle
     public $sourcePath = '@npm/materialize-css/dist';
 
     public $js = [
-        'js/materialize.min.js'
+        'js/materialize'.(YII_CONSOLE || YII_ENV_DEV?'':'.min').'.js'
     ];
 
     public $depends = [
